@@ -1,4 +1,8 @@
-﻿type Mark = Unmarked | Marked
+﻿////////////////////////////
+// SIEVE OF ERATOSTHENES //
+//////////////////////////
+
+type Mark = Unmarked | Marked
 
 let getPrimes(n) = 
     let markMultiples x (sieve: Map<int, Mark>) = 
@@ -34,3 +38,18 @@ The starting point of p^2 is a pleasing but minor optimization, which can be mad
 because lower multiples will have already been crossed off when we found the primes prior to p. 
 For a fixed-size table of size n, once we have reached the sqrt(n)th entry in the table, 
 we need perform no more crossings off—we can simply read the remaining table entries and know them all to be prime. *)
+
+///////////////////////////////////
+// FINDING NEIGHBOURS IN A GRID  //
+///////////////////////////////////
+open System
+
+let getNeighbours (x,y) (matrix: 'a [,]) = 
+    let lower n = max 0 (n - 1)
+    let upper n = min (matrix.GetUpperBound(0)) (n + 1)
+    matrix.[lower x..upper x, lower y..upper y]
+
+// Tests
+let rnd = Random()
+let arr = Array2D.init 8 8 (fun _ _ -> rnd.Next(100))
+let slice = getNeighbours (3, 4) arr
