@@ -45,16 +45,11 @@ we need perform no more crossings off—we can simply read the remaining table e
 open System
 
 let getNeighbours (x,y) (matrix: 'a [,]) = 
-    let flatten (arr: ((int * int) * 'a) [,]) = 
-        arr |> Seq.cast<((int * int) * 'a)>
     let lower n = max 0 (n - 1)
     let upper n = min (matrix.GetUpperBound(0)) (n + 1)
-    let hmap = matrix.[lower x..upper x, lower y..upper y] 
-               |> Array2D.mapi (fun i j value -> ((i,j), value))
-               |> flatten
-               |> Map.ofSeq
-    hmap.Remove (Map.findKey (fun key value -> value = matrix.[x, y]) hmap)
-    |> Map.fold (fun acc _ value -> acc |> List.append [value]) []
+    seq { for i in lower x..upper x do
+            for j in lower y..upper y do
+             if (i,j) <> (x,y) then yield matrix.[i, j] }
     
 // Tests
 let rnd = Random()
