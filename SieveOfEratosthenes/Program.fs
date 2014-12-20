@@ -45,10 +45,17 @@ we need perform no more crossings off—we can simply read the remaining table e
 open System
 
 let getNeighbours (x,y) (matrix: 'a [,]) = 
+    let flatten (arr: ((int * int) * 'a) [,]) = 
+        arr |> Seq.cast<((int * int) * 'a)>
     let lower n = max 0 (n - 1)
     let upper n = min (matrix.GetUpperBound(0)) (n + 1)
-    matrix.[lower x..upper x, lower y..upper y]
-
+    let hmap = matrix.[lower x..upper x, lower y..upper y] 
+               |> Array2D.mapi (fun i j value -> ((i,j), value))
+               |> flatten
+               |> Map.ofSeq
+    hmap.Remove (Map.findKey (fun key value -> value = matrix.[x, y]) hmap)
+    |> Map.fold (fun acc _ value -> acc |> List.append [value]) []
+    
 // Tests
 let rnd = Random()
 let arr = Array2D.init 8 8 (fun _ _ -> rnd.Next(100))
