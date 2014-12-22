@@ -47,7 +47,9 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <Compile Include="SieveOfEratosthenes.fs" />
+    <Compile Include="NeighborExtraction.fs" />
+    <Compile Include="Quicksort.fs" />
     <None Include="App.config" />
   </ItemGroup>
   <PropertyGroup>
