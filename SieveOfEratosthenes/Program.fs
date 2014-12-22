@@ -55,3 +55,15 @@ let getNeighbours (x,y) (matrix: 'a [,]) =
 let rnd = Random()
 let arr = Array2D.init 8 8 (fun _ _ -> rnd.Next(100))
 let slice = getNeighbours (3, 4) arr
+
+/////////////////
+//  QUICKSORT  //
+/////////////////
+
+let rec qs inList =
+    match inList with
+    | [] -> []
+    | hd::tail -> 
+        let lessThan, greaterThan = List.partition ((>=)hd) tail
+        List.concat [qs lessThan; [hd]; qs greaterThan]
+  
