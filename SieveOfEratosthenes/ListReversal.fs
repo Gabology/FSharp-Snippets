@@ -10,5 +10,5 @@ let reverseList input =
         | [] -> []
         | hd::[] -> hd::cont()
         | hd::tail -> 
-            reverseList' tail (fun _ -> hd::cont())
-    reverseList' input (fun _ -> [])
+            reverseList' tail (fun () -> hd::cont())
+    reverseList' input (fun () -> [])
