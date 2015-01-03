@@ -51,6 +51,7 @@
     <Compile Include="NeighborExtraction.fs" />
     <Compile Include="Quicksort.fs" />
     <None Include="App.config" />
+    <Compile Include="ListReversal.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
