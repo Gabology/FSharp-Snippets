@@ -1,22 +1,23 @@
 ﻿////////////////////////////
 // SIEVE OF ERATOSTHENES //
 //////////////////////////
+module SieveOfEratosthenes
+
 
 type Mark = Unmarked | Marked
 
 let getPrimes(n) = 
-    let markMultiples x (sieve: Map<int, Mark>) = 
+    let markMultiples x (sieve: Map<_,_>) = 
         [x * x..x..n]
-        |> List.fold (fun (acc:Map<int,Mark>) num -> acc.Remove num |> Map.add num Marked ) sieve
-        
-    let rec search i (sieve: Map<int,Mark>) = 
+        |> List.fold (fun acc num -> Map.remove num acc |> Map.add num Marked) sieve
+
+    let rec search i (sieve: Map<_,_>) = 
         if i >= int (sqrt((float n))) then sieve
         else
             match sieve.[i] with
             | Marked   -> search (i + 1) sieve // Keep searching
             | Unmarked -> search (i + 1) (markMultiples i sieve) 
-    
-    
+
     search 2 (Map.ofList [for x in 2..n -> (x, Unmarked)])
     |> Map.toList
     |> List.filter(fun (num,mark) -> mark = Unmarked)
