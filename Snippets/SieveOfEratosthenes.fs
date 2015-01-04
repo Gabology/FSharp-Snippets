@@ -20,7 +20,7 @@ let getPrimes(n) =
 
     search 2 (Map.ofList [for x in 2..n -> (x, Unmarked)])
     |> Map.toList
-    |> List.filter(fun (num,mark) -> mark = Unmarked)
+    |> List.filter (snd >> ((=)Unmarked))
     |> List.unzip
     |> fst
 
