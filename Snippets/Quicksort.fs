@@ -9,4 +9,4 @@ let rec qs inList =
     | [] -> []
     | hd::tail -> 
         let lessThan, greaterThan = List.partition ((>=)hd) tail
-        List.concat [qs lessThan; [hd]; qs greaterThan]
+        qs lessThan @ [hd] @ qs greaterThan
